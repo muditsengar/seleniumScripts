@@ -1,5 +1,8 @@
-package InstructorWorkflow;
+package selenium;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
@@ -39,8 +42,9 @@ public class CSFItestscript {
   //driver = new HtmlUnitDriver();
   driver = new FirefoxDriver();
   //driver= new ChromeDriver();
-  driver.get("http://mindtap-staging.cengage.com/nb/service/launch?token=53E8F8D555D4A2EE3E196E07710FEBA3C196FDD84E6F44D2AD3657C86D4B8DD01CEEE832FEB67A153374A8CCBD12FCDA&pid=523402&eISBN=9781305387805&ILRN_CODE=bun_stfc04_mt&courseKey=MTPQPW9P35D3&titleIsbn=9781285430072");
   driver.manage().window().maximize();
+  driver.get("http://ng.cengage.com/nb/service/launch?token=6A960C0F4BC2FD593AAA47808F5961A3944929157BBE2C6919FFD5E41A114B1C2D14C77475EFC7FA78920BA45F875CCF&pid=523402&eISBN=9781305387805&ILRN_CODE=bun_stfc04_mt&courseKey=MTPNRDKP5NFZ&titleIsbn=9781285430072");
+  
  }
  
  @Test (priority = 1)
@@ -49,15 +53,16 @@ public class CSFItestscript {
   //WebElement enter = driver.findElement(By.cssSelector("#nb_enter"));//Click Enter button
   js = (JavascriptExecutor)driver;
   //js.executeScript("arguments[0].click();", enter);
-  //Thread.sleep(5000);
+  //Thread.sleep(5000);	
   //driver.navigate().refresh();
   //Thread.sleep(5000);
-  /*WebElement addContent= driver.findElement(By.cssSelector(".lpn_create.title_bar_edit.ng-scope>a:nth-child(1)"));
+  WebElement addContent= driver.findElement(By.cssSelector(".lpn_create.title_bar_edit.ng-scope>a:nth-child(1)"));
   js.executeScript("arguments[0].click();", addContent);
   WebElement addActivity = driver.findElement(By.xpath("//*[@class='lpn_create active']//*[@class='menu_item activity']/a"));
   js.executeScript("arguments[0].click();", addActivity);
   Thread.sleep(7000);
-  WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_146>div>div>div>div:nth-child(1)"));
+  //WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_146>div>div>div>div:nth-child(1)"));
+  WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_57>div>div>div>div:nth-child(1)"));
   js.executeScript("arguments[0].click();", Assessment);
   Thread.sleep(5000);
   frames = driver.findElements(By.tagName("iframe"));
@@ -86,7 +91,7 @@ public class CSFItestscript {
   //se = new Select(driver.findElement(By.cssSelector("#order-button>span:nth-child(1)")));
   //se.selectByValue("0");
   WebElement Save = driver.findElement(By.cssSelector(".adminButton.save"));
-  js.executeScript("arguments[0].click();", Save);*/
+  js.executeScript("arguments[0].click();", Save);
   Thread.sleep(5000);
   WebElement UnitView = driver.findElement(By.cssSelector(".ng-scope.pane-lpn.pane"));
   js.executeScript("arguments[0].click();", UnitView);
@@ -108,7 +113,8 @@ public class CSFItestscript {
 	      //Returns the Name of a frame.
 	        System.out.println("Frame name :" + el.getAttribute("name"));
 	    }
-	 driver.switchTo().frame("97_NB_Main_IFrame").switchTo().frame(0);
+	 //driver.switchTo().frame("97_NB_Main_IFrame").switchTo().frame(0);
+	 driver.switchTo().frame("54_NB_Main_IFrame").switchTo().frame(0);
 	 Thread.sleep(2000);
 	 WebElement Start = driver.findElement(By.cssSelector(".btn.btn-primary"));
 	 js.executeScript("arguments[0].click();", Start);
@@ -247,10 +253,27 @@ public class CSFItestscript {
 		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
 		 Thread.sleep(2000);
 		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 driver.close();
  }
  
- @AfterClass
+ @Test (priority=3)
+ public void studentAttempt()  throws Exception{
+	 driver.manage().window().maximize();
+	 driver.get(CSFIinstSSO.studentURL);
+	 WebElement uname = driver.findElement(By.cssSelector("#returningCustomer>div:first-of-type>div>input"));
+	 uname.clear();
+	 uname.sendKeys("clhm_stun1@qai.com");
+	 WebElement password = driver.findElement(By.cssSelector("#fmPassword"));
+	 password.clear();
+	 password.sendKeys("A123456");
+	 driver.findElement(By.cssSelector("#returningCustomer>div:nth-child(5)")).click();
+	 Thread.sleep(500);
+	 driver.findElement(By.cssSelector("#payLater>a")).click();
+ }
+ 
+ @AfterMethod
+@AfterClass
  public void tearDown(){
- // driver.close();
+  //driver.close();
  }
 }
