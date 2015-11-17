@@ -1,0 +1,84 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.By.ById;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.JavascriptExecutor;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+
+public class hris {
+	static List<WebElement> frames;
+	static JavascriptExecutor js;
+	public static void main(String ae[]) throws Exception{
+		//WebDriver driver = 	new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver","C://Users//muditsingh//Desktop//eclipse workspace//selenium//chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		//HtmlUnitDriver driver = new HtmlUnitDriver(true);
+		//HtmlUnitDriver driver = new HtmlUnitDriver(BrowserVersion.FIREFOX_38);
+		String appUrl = "http://hris.qait.com/qaithris/login.php";
+		driver.get(appUrl);
+		driver.manage().window().maximize();
+		String expextedTitle = "QAIT HRIS:Login";
+		String actualTitle = 	driver.getTitle();
+		/*if (expextedTitle.equals(actualTitle)){
+			System.out.println("Verification Successful - The correct title is displayed on the web page.");	
+		}
+		else{
+			System.out.println("Verification Failed - An incorrect title is displayed on the web page.");
+		}*/
+		WebElement username = driver.findElement(By.xpath(".//*[@id='txtUserName']"));
+		username.clear();
+		username.sendKeys("muditsingh");
+		WebElement password = driver.findElement(By.xpath(".//*[@id='txtPassword']"));
+		password.clear();
+		password.sendKeys("    m");
+		WebElement Signin = driver.findElement(By.xpath(".//*[@id='loginDivMiddle']/div[4]/input[2]"));
+		Signin.click();
+		//System.out.println("logged in ...");
+		String text = driver.findElement(By.cssSelector("#menu>li:first-of-type>a")).getAttribute("text");
+		//System.out.println("text is :"+text);
+		frames = driver.findElements(By.tagName("iframe"));
+		/* System.out.println(frames.size());
+		 System.out.println(frames);
+		 for(WebElement el : frames){
+		      //Returns the Id of a frame.
+		        System.out.println("Frame Id :" + el.getAttribute("id"));
+		      //Returns the Name of a frame.
+		        System.out.println("Frame name :" + el.getAttribute("name"));
+		  }*/
+		 //driver.switchTo().frame("rightMenu").switchTo().frame(0);
+		 driver.switchTo().frame(0);
+		 //Thread.sleep(2000);
+		 WebElement pTime = driver.findElement(By.cssSelector(".Hdr>blink>font"));
+		 String time = pTime.getText();
+		 System.out.println("previous day time is: "+ time);
+		 WebElement thought = driver.findElement(By.cssSelector(".divColor"));
+		 String thoughtText = thought.getText();
+		 System.out.println(thoughtText);
+/*		 WebElement missedClasses = driver.findElement(By.cssSelector(".Hdr>font"));
+		 String missedString = missedClasses.getText();
+		 System.out.println("missed classes: "+ missedString);*/
+		//WebElement logout = driver.findElement(By.xpath("html/body/table[1]/tbody/tr/td/table/tbody/tr[3]/td/table/tbody/tr/td[5]/a/strong"));
+		//logout.click();
+		//driver.close();
+		//System.out.println("Test script executed successfully.");
+		//System.exit(0);
+		 driver.switchTo().defaultContent();
+		 //driver.findElement(By.cssSelector(".otherTab.MyTimeCls")).click();
+		 driver.get("https://mail.qainfotech.net/WorldClient.dll?Session=CIX0P32MJIMXL&View=Main");
+		 Thread.sleep(1000);
+		 driver.findElement(By.cssSelector("#User")).sendKeys("muditsingh@qainfotech.net");
+		 driver.findElement(By.cssSelector("#Password")).sendKeys("mudit@321");
+		 driver.findElement(By.cssSelector("#Logon")).click();
+		 
+		 driver.findElement(By.cssSelector(".date"));
+		
+	}
+}
