@@ -38,14 +38,13 @@ public class CSFItestscript {
  
  @BeforeClass
  public void setup() {
-   //System.setProperty("webdriver.chrome.driver","C://Users//muditsingh//Desktop//eclipse workspace//chromedriver.exe");
+  System.setProperty("webdriver.chrome.driver","C://Users//muditsingh//Desktop//eclipse workspace//chromedriver.exe");
   //driver = new HtmlUnitDriver();
-  driver = new FirefoxDriver();
-  //driver= new ChromeDriver();
+  //driver = new FirefoxDriver();
+  driver= new ChromeDriver();
   driver.manage().window().maximize();
-  driver.get("http://ng.cengage.com/nb/service/launch?token=6A960C0F4BC2FD593AAA47808F5961A3944929157BBE2C6919FFD5E41A114B1C2D14C77475EFC7FA78920BA45F875CCF&pid=523402&eISBN=9781305387805&ILRN_CODE=bun_stfc04_mt&courseKey=MTPNRDKP5NFZ&titleIsbn=9781285430072");
-  
- }
+  driver.get("http://mindtap-staging.cengage.com/nb/service/launch?token=667A6DF8D1F0ED7A2FF6F6CCD89C2A4A16C0DA2DE4BDB4BF8D3B56DA76F55F8A3B81B09167E32FA4F4F12A65D23D79FD&pid=523402&eISBN=9781305387805&ILRN_CODE=bun_stfc04_mt&courseKey=MTPPS95PZGHH&titleIsbn=9781285430072");
+  }
  
  @Test (priority = 1)
  public void openAddActivityPage() throws Exception{
@@ -53,7 +52,7 @@ public class CSFItestscript {
   //WebElement enter = driver.findElement(By.cssSelector("#nb_enter"));//Click Enter button
   js = (JavascriptExecutor)driver;
   //js.executeScript("arguments[0].click();", enter);
-  //Thread.sleep(5000);	
+  Thread.sleep(5000);
   //driver.navigate().refresh();
   //Thread.sleep(5000);
   WebElement addContent= driver.findElement(By.cssSelector(".lpn_create.title_bar_edit.ng-scope>a:nth-child(1)"));
@@ -61,15 +60,16 @@ public class CSFItestscript {
   WebElement addActivity = driver.findElement(By.xpath("//*[@class='lpn_create active']//*[@class='menu_item activity']/a"));
   js.executeScript("arguments[0].click();", addActivity);
   Thread.sleep(7000);
-  //WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_146>div>div>div>div:nth-child(1)"));
-  WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_57>div>div>div>div:nth-child(1)"));
+  WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_146>div>div>div>div:nth-child(1)"));
+  //WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_366>div>div>div>div:nth-child(1)"));
+  //WebElement Assessment = driver.findElement(By.cssSelector(".app_activity.app_activity_57>div>div>div>div:nth-child(1)"));
   js.executeScript("arguments[0].click();", Assessment);
   Thread.sleep(5000);
   frames = driver.findElements(By.tagName("iframe"));
   System.out.println(frames);
   Thread.sleep(20000);
   driver.switchTo().frame(0);
-  Thread.sleep(1000);
+  Thread.sleep(5000);
   WebElement CSFI = driver.findElement(By.cssSelector(".creationTypeOption.creation_type_csfi>div:nth-child(1)"));
   js.executeScript("arguments[0].click();", CSFI);
   Thread.sleep(3000);
@@ -103,7 +103,7 @@ public class CSFItestscript {
 	
  @Test (priority=2)
  public void attempt() throws Exception{
-	 Thread.sleep(20000);
+	 //Thread.sleep(20000);
 	 frames = driver.findElements(By.tagName("iframe"));
 	 System.out.println(frames.size());
 	 System.out.println(frames);
@@ -113,8 +113,8 @@ public class CSFItestscript {
 	      //Returns the Name of a frame.
 	        System.out.println("Frame name :" + el.getAttribute("name"));
 	    }
-	 //driver.switchTo().frame("97_NB_Main_IFrame").switchTo().frame(0);
-	 driver.switchTo().frame("54_NB_Main_IFrame").switchTo().frame(0);
+	 driver.switchTo().frame("97_NB_Main_IFrame").switchTo().frame(0);
+	 //driver.switchTo().frame("54_NB_Main_IFrame").switchTo().frame(0);
 	 Thread.sleep(2000);
 	 WebElement Start = driver.findElement(By.cssSelector(".btn.btn-primary"));
 	 js.executeScript("arguments[0].click();", Start);
@@ -258,8 +258,10 @@ public class CSFItestscript {
  
  @Test (priority=3)
  public void studentAttempt()  throws Exception{
+	 driver= new ChromeDriver();
 	 driver.manage().window().maximize();
-	 driver.get(CSFIinstSSO.studentURL);
+	 //driver.get(CSFIinstSSO.studentURL);
+	 driver.get("https://s-c-login.cengagebrain.com/course/MTPP-S95P-ZGHH");
 	 WebElement uname = driver.findElement(By.cssSelector("#returningCustomer>div:first-of-type>div>input"));
 	 uname.clear();
 	 uname.sendKeys("clhm_stun1@qai.com");
@@ -271,7 +273,7 @@ public class CSFItestscript {
 	 driver.findElement(By.cssSelector("#payLater>a")).click();
  }
  
- @AfterMethod
+ 
 @AfterClass
  public void tearDown(){
   //driver.close();
