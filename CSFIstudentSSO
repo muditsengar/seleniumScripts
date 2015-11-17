@@ -2,6 +2,7 @@ package selenium;
 
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
+
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
@@ -32,27 +33,199 @@ public class CSFIstudentSSO {
 	 Select se;
 	 Robot r;
 	 ArrayList<String> tabs;
+	 List<WebElement> frames;
 	 @BeforeClass
 	 public void setup() {
 	  //System.setProperty("webdriver.chrome.driver","C://Users//muditsingh//Desktop//eclipse workspace//chromedriver.exe");
 	  //driver = new HtmlUnitDriver();
 	  driver = new FirefoxDriver();
 	  //driver= new ChromeDriver();
+	  //driver.get(CSFIinstSSO.studentURL);
+	  //driver.get("https://s-c-login.cengagebrain.com/course/MTPP-S95P-ZGHH");
+	  driver.get("http://mindtap-staging.cengage.com/nb/service/launch?token=68275F7E45D527AF8F42D6B34DC01CC57264AC4114C5BA70790066934AFDC3F6E0A92CB9B8D82BC1D6233CA40E776100&pid=523402&eISBN=9781305387805&ILRN_CODE=bun_stfc04_mt&courseKey=MTPPS95PZGHH&titleIsbn=9781285430072");
 	  driver.manage().window().maximize();
-	  driver.get(CSFIinstSSO.studentURL);
-	  
 	 }
 	
-	 @Test (priority= 1)
+	 @Test (priority = 1)
 	 public void login() throws Exception{
-		 WebElement uname = driver.findElement(By.cssSelector("#returningCustomer>div:first-of-type>div>input"));
+		 /*WebElement uname = driver.findElement(By.cssSelector("#returningCustomer>div:first-of-type>div>input"));
 		 uname.clear();
 		 uname.sendKeys("clhm_stun1@qai.com");
 		 WebElement password = driver.findElement(By.cssSelector("#fmPassword"));
 		 password.clear();
 		 password.sendKeys("A123456");
 		 driver.findElement(By.cssSelector("#returningCustomer>div:nth-child(5)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector("#payLater>a")).click();*/
 	  }
 	 
-	
+	 @Test (priority = 2)
+	 public void launch() throws Exception{
+		 /*WebElement enter = driver.findElement(By.cssSelector("#nb_enter"));//Click Enter button
+		 js = (JavascriptExecutor)driver;
+		 js.executeScript("arguments[0].click();", enter);
+		 Thread.sleep(5000);
+		 driver.navigate().refresh();*/
+		 Thread.sleep(20000);
+		 //driver.switchTo().frame(0);
+		 //WebElement UnitView = driver.findElement(By.cssSelector(".ng-scope.pane-lpn.pane"));
+		 //js.executeScript("arguments[0].click();", UnitView);
+		 driver.findElement(By.cssSelector(".ng-scope.pane-lpn.pane")).click();
+		 //WebElement launchActivity = driver.findElement(By.cssSelector(".lpn_stacklist.slate.plain.list.lpn_list>li:last-child>div>div:nth-child(2)>h3>a"));
+		 //js.executeScript("arguments[0].click();", launchActivity);
+		 driver.findElement(By.cssSelector(".lpn_stacklist.slate.plain.list.lpn_list>li:last-child>div>div:nth-child(2)>h3>a")).click();
+		 Thread.sleep(20000);
+		 frames = driver.findElements(By.tagName("iframe"));
+		 System.out.println(frames.size());
+		 System.out.println(frames);
+		 for(WebElement el : frames){
+		      //Returns the Id of a frame.
+		        System.out.println("Frame Id :" + el.getAttribute("id"));
+		      //Returns the Name of a frame.
+		        System.out.println("Frame name :" + el.getAttribute("name"));
+		    }
+		 driver.switchTo().frame("97_NB_Main_IFrame").switchTo().frame(0);
+		 //driver.switchTo().frame("54_NB_Main_IFrame").switchTo().frame(0);
+		 Thread.sleep(2000);
+		 //WebElement Start = driver.findElement(By.cssSelector(".btn.btn-primary"));
+		 //js.executeScript("arguments[0].click();", Start);
+		 driver.findElement(By.cssSelector(".btn.btn-primary")).click();
+		 Thread.sleep(3000);
+		 
+		//for(int i=1;i<=10;i++){
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 //js.executeScript("arguments[0].click();", q);
+		 Thread.sleep(500);
+	//}
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(1500);
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(1)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(2)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(3)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(4)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(5)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(6)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(7)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(8)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(9)>td.question-answer.ng-scope:nth-child(2)")).click();
+		 driver.findElement(By.cssSelector(".table.table-striped.section-wide>tbody>tr:nth-child(10)>td.question-answer.ng-scope:nth-child(3)")).click();
+		 Thread.sleep(500);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 Thread.sleep(2000);
+		 driver.findElement(By.cssSelector(".btn.btn-primary.ng-scope")).click();
+		 
+	 }
 }
