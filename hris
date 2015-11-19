@@ -35,10 +35,10 @@ public class hris {
 		}*/
 		WebElement username = driver.findElement(By.xpath(".//*[@id='txtUserName']"));
 		username.clear();
-		username.sendKeys("muditsingh");
+		username.sendKeys("");
 		WebElement password = driver.findElement(By.xpath(".//*[@id='txtPassword']"));
 		password.clear();
-		password.sendKeys("    m");
+		password.sendKeys("");
 		WebElement Signin = driver.findElement(By.xpath(".//*[@id='loginDivMiddle']/div[4]/input[2]"));
 		Signin.click();
 		//System.out.println("logged in ...");
@@ -74,8 +74,8 @@ public class hris {
 		 //driver.findElement(By.cssSelector(".otherTab.MyTimeCls")).click();
 		 driver.get("https://mail.qainfotech.net/WorldClient.dll?Session=CIX0P32MJIMXL&View=Main");
 		 Thread.sleep(1000);
-		 driver.findElement(By.cssSelector("#User")).sendKeys("muditsingh@qainfotech.net");
-		 driver.findElement(By.cssSelector("#Password")).sendKeys("mudit@321");
+		 driver.findElement(By.cssSelector("#User")).sendKeys("qainfotech.net");
+		 driver.findElement(By.cssSelector("#Password")).sendKeys("");
 		 driver.findElement(By.cssSelector("#Logon")).click();
 		 
 		 driver.findElement(By.cssSelector(".date"));
