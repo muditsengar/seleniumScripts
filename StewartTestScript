@@ -1,0 +1,97 @@
+package com.stewart.Automation;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import org.bouncycastle.jcajce.provider.asymmetric.dsa.DSASigner.noneDSA;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.thoughtworks.selenium.webdriven.commands.Click;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class StewartTestScript {
+	
+	 static WebDriver driver;
+	 static JavascriptExecutor js;
+	 static String s, startDate, endDate, QAFurl, QADurl;
+	 Select se;
+	 Robot r;
+	 ArrayList<String> tabs;
+	 List<WebElement> frameList;
+	 static WebDriverWait wait;
+	 @BeforeClass
+	 public void setup() {
+	  //driver = new HtmlUnitDriver();
+	  //driver = new FirefoxDriver();
+	  driver= new ChromeDriver();
+	  driver.get("http://mindtap-staging.cengage.com/nb/service/launch?token=A23EE6AB35F68FD18EFBF0EDB086E66DD17703A29E61952B9E619D32C52FAE61B45B452AF7DAC541877064F8EB3A5268&pid=533415&eISBN=9781305876972&courseKey=MTPPGV6P3VMW&titleIsbn=9781305876651"); // enter course url
+	  driver.manage().window().maximize();
+	  System.setProperty("webdriver.chrome.driver","C://Users//muditsingh//Desktop//eclipse workspace//chromedriver.exe");
+	  wait = new WebDriverWait(driver, 100);
+	 }
+	 
+	 @Test (priority=1)
+	 public void openAddActivityPage() throws Exception{
+	  
+	  //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".button-text.style-scope.cl-splash")));
+	  //driver.findElement(By.cssSelector(".button-text.style-scope.cl-splash")).click();//GO
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-to-week.style-scope.cl-rolling-week>.add-to-week-button.style-scope.cl-rolling-week")));
+	  driver.findElement(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-to-week.style-scope.cl-rolling-week>.add-to-week-button.style-scope.cl-rolling-week")).click();//Add to week 1
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-dialog-wrapper.style-scope.cl-rolling-week:nth-child(2)>#addDialog>.style-scope.cl-add-dialog>.style-scope.cl-add-dialog:nth-child(2)>.style-scope.cl-add-dialog-week.x-scope.cl-date-icon-0:nth-child(2)")));
+	  driver.findElement(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-dialog-wrapper.style-scope.cl-rolling-week:nth-child(2)>#addDialog>.style-scope.cl-add-dialog>.style-scope.cl-add-dialog:nth-child(2)>.style-scope.cl-add-dialog-week.x-scope.cl-date-icon-0:nth-child(2)")).click();// Current date
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#assessment>.description.style-scope.cl-add-dialog-mindapp")));
+	  driver.findElement(By.cssSelector("#assessment>.description.style-scope.cl-add-dialog-mindapp")).click();//Assessment app
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h4.style-scope.cl-add-lti-activity")));
+	  System.out.println("Assessment App is loaded.");
+	 }
+	 
+	 @Test (priority=2)
+	 public void selectRemediationActivity() throws Exception{
+		 frameList=driver.findElements(By.tagName("iframe"));
+		 System.out.println(frameList.size());
+		 System.out.println(frameList);
+		 Thread.sleep(1000);
+		 //driver.switchTo().frame(0);
+		 //Thread.sleep(5000);
+		 driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[name='ltiAdd']")));
+		 System.out.println("frame f");
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='clhomework-grove-container']/div/div/div[3]/div/section/div[1]/div[2]/span[2]/label/input")));
+		 driver.findElement(By.xpath(".//*[@id='clhomework-grove-container']/div/div/div[3]/div/section/div[1]/div[2]/span[2]/label/input")).click();//Homework checkbox
+		 Thread.sleep(1000);
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".assessment.ng-isolate-scope:nth-child(1)>.editButtonSection>.edit")));
+		 driver.findElement(By.cssSelector(".assessment.ng-isolate-scope:nth-child(1)>.editButtonSection>.edit")).click();//Assign
+		 System.out.println("Assign button is clicked");
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".toggleAssignmentOptionsButton")));
+		 driver.findElement(By.cssSelector(".toggleAssignmentOptionsButton")).click();// View and Edit Settings button
+		 System.out.println("View and Edit Settings button is clicked");
+		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='clhomework-grove-container']/div/div/div[2]/div/div[3]/cl-grove-core-oak-launcher/cl-oak/form/div/div[1]/div[1]")));
+		 System.out.println("Question Delivery label is displayed");
+		 if(driver.findElement(By.xpath(".//*[@id='maxItemAttempts']/div[1]")).isDisplayed())
+			 System.out.println("Question Attempts dropdown is displayed");
+		 
+		 
+		 
+	 }
+	
+
+}
