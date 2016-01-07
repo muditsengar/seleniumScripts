@@ -35,12 +35,14 @@ public class Instructor {
  Select se;
  Robot r;
  ArrayList<String> tabs;
+ List<WebElement> frameList;
+ static WebDriverWait wait;
  @BeforeClass
  public void setup() {
   //driver = new HtmlUnitDriver();
   //driver = new FirefoxDriver();
   driver= new ChromeDriver();
-  driver.get("https://s-login.cengage.com/");
+  driver.get("https://s-c-login.cengage.com/");
   driver.manage().window().maximize();
   System.setProperty("webdriver.chrome.driver","C://Users//muditsingh//Desktop//eclipse workspace//chromedriver.exe");
  }
@@ -138,13 +140,52 @@ public class Instructor {
   WebDriverWait wait = new WebDriverWait(driver, 100);
   wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".button-text.style-scope.cl-splash")));
   driver.findElement(By.cssSelector(".button-text.style-scope.cl-splash")).click();//GO
-  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-to-week.style-scope.cl-rolling-week>.add-to-week-button.style-scope.cl-rolling-week")));
+  System.out.println("splash is clicked");
+  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>iron-collapse>div:nth-child(1)>button>b")));//Stage add to week
+  driver.findElement(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>iron-collapse>div:nth-child(1)>button>b")).click();// Stage Add to week 1
+  System.out.println("Add to week is clicked");
+  /*wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-to-week.style-scope.cl-rolling-week>.add-to-week-button.style-scope.cl-rolling-week")));
   driver.findElement(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-to-week.style-scope.cl-rolling-week>.add-to-week-button.style-scope.cl-rolling-week")).click();//Add to week 1
   wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-dialog-wrapper.style-scope.cl-rolling-week:nth-child(2)>#addDialog>.style-scope.cl-add-dialog>.style-scope.cl-add-dialog:nth-child(2)>.style-scope.cl-add-dialog-week.x-scope.cl-date-icon-0:nth-child(2)")));
-  driver.findElement(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-dialog-wrapper.style-scope.cl-rolling-week:nth-child(2)>#addDialog>.style-scope.cl-add-dialog>.style-scope.cl-add-dialog:nth-child(2)>.style-scope.cl-add-dialog-week.x-scope.cl-date-icon-0:nth-child(2)")).click();// Current date
-  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#assessment>.description.style-scope.cl-add-dialog-mindapp")));
-  driver.findElement(By.cssSelector("#assessment>.description.style-scope.cl-add-dialog-mindapp")).click();//Assessment app
+  driver.findElement(By.cssSelector("#rollingWeeksContainer>.style-scope.cl-rolling-weekview:nth-child(1)>#collapseWeek>.add-dialog-wrapper.style-scope.cl-rolling-week:nth-child(2)>#addDialog>.style-scope.cl-add-dialog>.style-scope.cl-add-dialog:nth-child(2)>.style-scope.cl-add-dialog-week.x-scope.cl-date-icon-0:nth-child(2)")).click();// Current date*/
+  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#rollingWeeksContainer>cl-rolling-week:nth-child(1)>iron-collapse>div:nth-child(4)>#addDialog>div>cl-date-icon:nth-child(2)")));
+  driver.findElement(By.cssSelector("#rollingWeeksContainer>cl-rolling-week:nth-child(1)>iron-collapse>div:nth-child(4)>#addDialog>div>cl-date-icon:nth-child(2)")).click();// Current date on stage
+  System.out.println("date is selected");
+  /*wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#assessment>.description.style-scope.cl-add-dialog-mindapp")));
+  driver.findElement(By.cssSelector("#assessment>.description.style-scope.cl-add-dialog-mindapp")).click();//Assessment app*/
+  wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div:nth-child(11)>.title.style-scope.cl-add-dialog")));
+  driver.findElement(By.cssSelector("div:nth-child(11)>.title.style-scope.cl-add-dialog")).click();//Assessment app
+  System.out.println("Assessment app is clicked");
   wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h4.style-scope.cl-add-lti-activity")));
+  System.out.println("Assessment App is loaded.");
+ }
+ 
+ @Test (priority=7)
+ public void selectRemediationActivity() throws Exception{
+	 frameList=driver.findElements(By.tagName("iframe"));
+	 System.out.println(frameList.size());
+	 System.out.println(frameList);
+	 Thread.sleep(1000);
+	 //driver.switchTo().frame(0);
+	 //Thread.sleep(5000);
+	 driver.switchTo().frame(driver.findElement(By.cssSelector("iframe[name='ltiAdd']")));
+	 System.out.println("frame f");
+	 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='clhomework-grove-container']/div/div/div[3]/div/section/div[1]/div[2]/span[2]/label/input")));
+	 driver.findElement(By.xpath(".//*[@id='clhomework-grove-container']/div/div/div[3]/div/section/div[1]/div[2]/span[2]/label/input")).click();//Homework checkbox
+	 Thread.sleep(1000);
+	 wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".assessment.ng-isolate-scope:nth-child(1)>.editButtonSection>.edit")));
+	 driver.findElement(By.cssSelector(".assessment.ng-isolate-scope:nth-child(1)>.editButtonSection>.edit")).click();//Assign
+	 System.out.println("Assign button is clicked");
+	 wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".toggleAssignmentOptionsButton")));
+	 driver.findElement(By.cssSelector(".toggleAssignmentOptionsButton")).click();// View and Edit Settings button
+	 System.out.println("View and Edit Settings button is clicked");
+	 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='clhomework-grove-container']/div/div/div[2]/div/div[3]/cl-grove-core-oak-launcher/cl-oak/form/div/div[1]/div[1]")));
+	 System.out.println("Question Delivery label is displayed");
+	 if(driver.findElement(By.xpath(".//*[@id='maxItemAttempts']/div[1]")).isDisplayed())
+		 System.out.println("Question Attempts dropdown is displayed");
+	 
+	 
+	 
  }
  
  @AfterMethod
